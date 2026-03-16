@@ -1,0 +1,132 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-sans); }
+.dash { padding: 1.5rem 1rem; }
+.topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
+.topbar-left h2 { font-size: 18px; font-weight: 500; color: var(--color-text-primary); }
+.topbar-left p { font-size: 13px; color: var(--color-text-secondary); margin-top: 2px; }
+.btn { background: transparent; border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); padding: 7px 14px; font-size: 13px; cursor: pointer; color: var(--color-text-primary); }
+.btn:hover { background: var(--color-background-secondary); }
+.btn-primary { background: var(--color-text-primary); color: var(--color-background-primary); border-color: var(--color-text-primary); }
+.btn-primary:hover { opacity: 0.88; }
+.metrics { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; margin-bottom: 1.5rem; }
+.metric { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 1rem; }
+.metric-label { font-size: 12px; color: var(--color-text-secondary); margin-bottom: 6px; }
+.metric-value { font-size: 22px; font-weight: 500; color: var(--color-text-primary); }
+.metric-sub { font-size: 11px; margin-top: 4px; }
+.up { color: #3B6D11; } .down { color: #993C1D; }
+.panels { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+.card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; }
+.card-title { font-size: 14px; font-weight: 500; margin-bottom: 1rem; color: var(--color-text-primary); }
+.bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; font-size: 12px; }
+.bar-label { width: 36px; color: var(--color-text-secondary); text-align: right; flex-shrink: 0; }
+.bar-track { flex: 1; background: var(--color-background-secondary); border-radius: 3px; height: 10px; }
+.bar-fill { height: 10px; border-radius: 3px; }
+.bar-val { width: 48px; color: var(--color-text-secondary); font-size: 11px; text-align: right; flex-shrink: 0; }
+.donut-wrap { display: flex; align-items: center; gap: 16px; }
+.legend { display: flex; flex-direction: column; gap: 8px; font-size: 12px; color: var(--color-text-secondary); }
+.legend-item { display: flex; align-items: center; gap: 6px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { text-align: left; color: var(--color-text-secondary); font-weight: 400; font-size: 12px; padding: 0 8px 8px 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
+td { padding: 9px 8px 9px 0; color: var(--color-text-primary); border-bottom: 0.5px solid var(--color-border-tertiary); vertical-align: middle; }
+tr:last-child td { border-bottom: none; }
+.badge { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 20px; font-weight: 400; }
+.badge-paid { background: #EAF3DE; color: #3B6D11; }
+.badge-pending { background: #FAEEDA; color: #854F0B; }
+.badge-overdue { background: #FCEBEB; color: #A32D2D; }
+.table-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; }
+.section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+</style>
+<div class="dash">
+  <div class="topbar">
+    <div class="topbar-left">
+      <h2>Invoice Dashboard</h2>
+      <p>March 2026 · Acme Design Studio</p>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="btn">Export PDF</button>
+      <button class="btn btn-primary">+ New Invoice</button>
+    </div>
+  </div>
+
+  <div class="metrics">
+    <div class="metric">
+      <div class="metric-label">Total revenue</div>
+      <div class="metric-value">R84,320</div>
+      <div class="metric-sub up">↑ 12% vs last month</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Outstanding</div>
+      <div class="metric-value">R22,150</div>
+      <div class="metric-sub down">3 invoices pending</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Invoices sent</div>
+      <div class="metric-value">24</div>
+      <div class="metric-sub up">↑ 4 from Feb</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Avg. payment time</div>
+      <div class="metric-value">8.4 days</div>
+      <div class="metric-sub up">↓ 1.2 days faster</div>
+    </div>
+  </div>
+
+  <div class="panels">
+    <div class="card">
+      <div class="card-title">Monthly revenue</div>
+      <div class="bar-row"><span class="bar-label">Oct</span><div class="bar-track"><div class="bar-fill" style="width:52%;background:#7F77DD"></div></div><span class="bar-val">R44,100</span></div>
+      <div class="bar-row"><span class="bar-label">Nov</span><div class="bar-track"><div class="bar-fill" style="width:61%;background:#7F77DD"></div></div><span class="bar-val">R51,800</span></div>
+      <div class="bar-row"><span class="bar-label">Dec</span><div class="bar-track"><div class="bar-fill" style="width:70%;background:#7F77DD"></div></div><span class="bar-val">R59,500</span></div>
+      <div class="bar-row"><span class="bar-label">Jan</span><div class="bar-track"><div class="bar-fill" style="width:55%;background:#7F77DD"></div></div><span class="bar-val">R46,200</span></div>
+      <div class="bar-row"><span class="bar-label">Feb</span><div class="bar-track"><div class="bar-fill" style="width:78%;background:#7F77DD"></div></div><span class="bar-val">R66,400</span></div>
+      <div class="bar-row"><span class="bar-label">Mar</span><div class="bar-track"><div class="bar-fill" style="width:100%;background:#533AB7"></div></div><span class="bar-val">R84,320</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Invoice status breakdown</div>
+      <div class="donut-wrap">
+        <svg width="110" height="110" viewBox="0 0 110 110">
+          <circle cx="55" cy="55" r="38" fill="none" stroke="#3B6D11" stroke-width="18" stroke-dasharray="143 96" stroke-dashoffset="0" transform="rotate(-90 55 55)"/>
+          <circle cx="55" cy="55" r="38" fill="none" stroke="#BA7517" stroke-width="18" stroke-dasharray="62 177" stroke-dashoffset="-143" transform="rotate(-90 55 55)"/>
+          <circle cx="55" cy="55" r="38" fill="none" stroke="#A32D2D" stroke-width="18" stroke-dasharray="34 205" stroke-dashoffset="-205" transform="rotate(-90 55 55)"/>
+          <text x="55" y="51" text-anchor="middle" font-size="14" font-weight="500" fill="var(--color-text-primary)">24</text>
+          <text x="55" y="65" text-anchor="middle" font-size="10" fill="var(--color-text-secondary)">invoices</text>
+        </svg>
+        <div class="legend">
+          <div class="legend-item"><span class="dot" style="background:#3B6D11"></span>Paid — 15 (60%)</div>
+          <div class="legend-item"><span class="dot" style="background:#BA7517"></span>Pending — 6 (25%)</div>
+          <div class="legend-item"><span class="dot" style="background:#A32D2D"></span>Overdue — 3 (15%)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-card">
+    <div class="section-header">
+      <span style="font-size:14px;font-weight:500;color:var(--color-text-primary)">Recent invoices</span>
+      <button class="btn" style="font-size:12px;padding:5px 10px">View all</button>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Invoice #</th>
+          <th>Client</th>
+          <th>Date</th>
+          <th>Due</th>
+          <th>Amount</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td style="color:var(--color-text-info)">INV-0024</td><td>Stark Industries</td><td>14 Mar</td><td>28 Mar</td><td>R12,500</td><td><span class="badge badge-pending">Pending</span></td></tr>
+        <tr><td style="color:var(--color-text-info)">INV-0023</td><td>Meridian Foods</td><td>10 Mar</td><td>24 Mar</td><td>R8,200</td><td><span class="badge badge-paid">Paid</span></td></tr>
+        <tr><td style="color:var(--color-text-info)">INV-0022</td><td>BluePeak Tech</td><td>5 Mar</td><td>19 Mar</td><td>R15,800</td><td><span class="badge badge-overdue">Overdue</span></td></tr>
+        <tr><td style="color:var(--color-text-info)">INV-0021</td><td>Vantage Media</td><td>1 Mar</td><td>15 Mar</td><td>R6,400</td><td><span class="badge badge-paid">Paid</span></td></tr>
+        <tr><td style="color:var(--color-text-info)">INV-0020</td><td>Orion Logistics</td><td>25 Feb</td><td>11 Mar</td><td>R9,750</td><td><span class="badge badge-paid">Paid</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>

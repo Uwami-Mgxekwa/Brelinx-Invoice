@@ -1,0 +1,256 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+.page{padding:1.25rem 1rem;font-family:var(--font-sans);}
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;}
+.topbar-left{display:flex;align-items:center;gap:10px;}
+.back-btn{background:transparent;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);padding:6px 12px;font-size:13px;cursor:pointer;color:var(--color-text-secondary);}
+.back-btn:hover{background:var(--color-background-secondary);}
+.page-title{font-size:18px;font-weight:500;color:var(--color-text-primary);}
+.actions{display:flex;gap:8px;}
+.btn{background:transparent;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);padding:7px 14px;font-size:13px;cursor:pointer;color:var(--color-text-primary);}
+.btn:hover{background:var(--color-background-secondary);}
+.btn-primary{background:var(--color-text-primary);color:var(--color-background-primary);border-color:var(--color-text-primary);}
+.btn-primary:hover{opacity:0.88;}
+.layout{display:grid;grid-template-columns:1fr 320px;gap:1rem;}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem;}
+.section-title{font-size:13px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:1rem;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.field{display:flex;flex-direction:column;gap:4px;}
+.field-full{margin-bottom:12px;}
+label{font-size:12px;color:var(--color-text-secondary);}
+input,select,textarea{width:100%;font-family:var(--font-sans);font-size:13px;}
+textarea{resize:none;height:60px;padding:8px;}
+.divider{border:none;border-top:0.5px solid var(--color-border-tertiary);margin:1.25rem 0;}
+.items-header{display:grid;grid-template-columns:1fr 70px 90px 90px 32px;gap:8px;font-size:11px;color:var(--color-text-secondary);padding-bottom:8px;border-bottom:0.5px solid var(--color-border-tertiary);margin-bottom:8px;}
+.item-row{display:grid;grid-template-columns:1fr 70px 90px 90px 32px;gap:8px;align-items:center;margin-bottom:8px;}
+.item-row input{font-size:13px;}
+.remove-btn{background:transparent;border:none;cursor:pointer;color:var(--color-text-tertiary);font-size:16px;padding:0;line-height:1;display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:var(--border-radius-md);}
+.remove-btn:hover{background:var(--color-background-danger);color:var(--color-text-danger);}
+.add-line-btn{background:transparent;border:0.5px dashed var(--color-border-secondary);border-radius:var(--border-radius-md);padding:7px 14px;font-size:13px;cursor:pointer;color:var(--color-text-secondary);width:100%;margin-top:4px;}
+.add-line-btn:hover{background:var(--color-background-secondary);}
+.totals-block{margin-top:1rem;padding-top:1rem;border-top:0.5px solid var(--color-border-tertiary);}
+.total-row{display:flex;justify-content:space-between;font-size:13px;color:var(--color-text-secondary);margin-bottom:6px;}
+.total-row-final{display:flex;justify-content:space-between;font-size:15px;font-weight:500;color:var(--color-text-primary);padding-top:8px;border-top:0.5px solid var(--color-border-tertiary);margin-top:6px;}
+.preview-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem;position:sticky;top:1rem;}
+.inv-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.25rem;}
+.inv-logo{width:36px;height:36px;border-radius:var(--border-radius-md);background:var(--color-background-secondary);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;color:var(--color-text-secondary);}
+.inv-num{font-size:13px;font-weight:500;color:var(--color-text-primary);}
+.inv-sub{font-size:11px;color:var(--color-text-secondary);margin-top:2px;}
+.inv-parties{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1rem;padding:10px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);}
+.party-label{font-size:10px;color:var(--color-text-secondary);margin-bottom:3px;}
+.party-name{font-size:12px;font-weight:500;color:var(--color-text-primary);}
+.party-detail{font-size:11px;color:var(--color-text-secondary);}
+.mini-table{width:100%;border-collapse:collapse;font-size:11px;margin-bottom:10px;}
+.mini-table th{text-align:left;color:var(--color-text-secondary);font-weight:400;padding:0 4px 5px 0;border-bottom:0.5px solid var(--color-border-tertiary);}
+.mini-table td{padding:5px 4px 5px 0;color:var(--color-text-primary);border-bottom:0.5px solid var(--color-border-tertiary);}
+.mini-table tr:last-child td{border-bottom:none;}
+.mini-total{font-size:12px;font-weight:500;color:var(--color-text-primary);text-align:right;}
+.status-pill{display:inline-block;font-size:10px;padding:2px 8px;border-radius:20px;background:#FAEEDA;color:#854F0B;margin-top:4px;}
+</style>
+
+<div class="page">
+  <div class="topbar">
+    <div class="topbar-left">
+      <button class="back-btn">← Back</button>
+      <span class="page-title">New invoice</span>
+    </div>
+    <div class="actions">
+      <button class="btn">Save draft</button>
+      <button class="btn btn-primary">Send invoice</button>
+    </div>
+  </div>
+
+  <div class="layout">
+    <div style="display:flex;flex-direction:column;gap:1rem;">
+
+      <div class="card">
+        <div class="section-title">Invoice details</div>
+        <div class="field-row">
+          <div class="field">
+            <label>Invoice number</label>
+            <input type="text" value="INV-0025" id="inv-num" oninput="updatePreview()">
+          </div>
+          <div class="field">
+            <label>Issue date</label>
+            <input type="date" value="2026-03-16" id="inv-date" oninput="updatePreview()">
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>Due date</label>
+            <input type="date" value="2026-03-30" id="due-date" oninput="updatePreview()">
+          </div>
+          <div class="field">
+            <label>Currency</label>
+            <select id="currency" onchange="updatePreview()">
+              <option value="R">ZAR (R)</option>
+              <option value="$">USD ($)</option>
+              <option value="€">EUR (€)</option>
+              <option value="£">GBP (£)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-title">Client</div>
+        <div class="field-full field">
+          <label>Client name</label>
+          <input type="text" id="client-name" placeholder="e.g. Stark Industries" oninput="updatePreview()">
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>Email</label>
+            <input type="email" id="client-email" placeholder="client@company.com" oninput="updatePreview()">
+          </div>
+          <div class="field">
+            <label>Phone</label>
+            <input type="tel" id="client-phone" placeholder="+27 11 000 0000">
+          </div>
+        </div>
+        <div class="field-full field">
+          <label>Billing address</label>
+          <textarea id="client-addr" placeholder="123 Main St, Johannesburg, 2001" oninput="updatePreview()"></textarea>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-title">Line items</div>
+        <div class="items-header">
+          <span>Description</span>
+          <span>Qty</span>
+          <span>Unit price</span>
+          <span style="text-align:right">Total</span>
+          <span></span>
+        </div>
+        <div id="items-container"></div>
+        <button class="add-line-btn" onclick="addItem()">+ Add line item</button>
+
+        <div class="totals-block">
+          <div class="total-row"><span>Subtotal</span><span id="subtotal">R 0.00</span></div>
+          <div class="total-row" style="align-items:center;">
+            <span>VAT</span>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <select id="vat-rate" onchange="recalc()" style="width:70px;font-size:12px;">
+                <option value="0">0%</option>
+                <option value="15" selected>15%</option>
+                <option value="20">20%</option>
+              </select>
+              <span id="vat-amount">R 0.00</span>
+            </div>
+          </div>
+          <div class="total-row-final"><span>Total</span><span id="grand-total">R 0.00</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-title">Notes</div>
+        <div class="field-full field">
+          <label>Payment instructions / notes</label>
+          <textarea id="notes" placeholder="e.g. Bank: FNB · Acc: 123456789 · Ref: INV-0025" style="height:72px;"></textarea>
+        </div>
+      </div>
+
+    </div>
+
+    <div>
+      <div class="preview-card">
+        <div style="font-size:11px;color:var(--color-text-secondary);margin-bottom:10px;">Live preview</div>
+        <div class="inv-header">
+          <div class="inv-logo">AD</div>
+          <div style="text-align:right">
+            <div class="inv-num" id="prev-num">INV-0025</div>
+            <div class="inv-sub" id="prev-date">Issued: 16 Mar 2026</div>
+            <div class="inv-sub" id="prev-due">Due: 30 Mar 2026</div>
+            <div class="status-pill">Draft</div>
+          </div>
+        </div>
+        <div class="inv-parties">
+          <div>
+            <div class="party-label">From</div>
+            <div class="party-name">Acme Design Studio</div>
+            <div class="party-detail">studio@acme.co.za</div>
+          </div>
+          <div>
+            <div class="party-label">To</div>
+            <div class="party-name" id="prev-client">—</div>
+            <div class="party-detail" id="prev-email">—</div>
+          </div>
+        </div>
+        <table class="mini-table" id="prev-table">
+          <thead><tr><th>Item</th><th style="text-align:right">Qty</th><th style="text-align:right">Total</th></tr></thead>
+          <tbody id="prev-tbody"><tr><td colspan="3" style="color:var(--color-text-tertiary);font-style:italic;">No items yet</td></tr></tbody>
+        </table>
+        <div style="display:flex;flex-direction:column;gap:4px;margin-top:8px;">
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--color-text-secondary)"><span>Subtotal</span><span id="prev-sub">R 0.00</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--color-text-secondary)"><span id="prev-vat-label">VAT (15%)</span><span id="prev-vat">R 0.00</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:500;color:var(--color-text-primary);padding-top:6px;border-top:0.5px solid var(--color-border-tertiary);"><span>Total</span><span id="prev-total">R 0.00</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let items = [{desc:'',qty:1,price:0},{desc:'',qty:1,price:0}];
+
+function fmt(n,sym){return sym+(n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,','));}
+
+function renderItems(){
+  const sym = document.getElementById('currency').value;
+  const c = document.getElementById('items-container');
+  c.innerHTML='';
+  items.forEach((item,i)=>{
+    const row=document.createElement('div');
+    row.className='item-row';
+    row.innerHTML=`
+      <input type="text" placeholder="Description" value="${item.desc}" oninput="items[${i}].desc=this.value;recalc()">
+      <input type="number" min="1" value="${item.qty}" oninput="items[${i}].qty=parseFloat(this.value)||0;recalc()">
+      <input type="number" min="0" step="0.01" placeholder="0.00" value="${item.price||''}" oninput="items[${i}].price=parseFloat(this.value)||0;recalc()">
+      <input type="text" readonly value="${fmt(item.qty*item.price,sym)}" style="text-align:right;color:var(--color-text-secondary);background:var(--color-background-secondary);">
+      <button class="remove-btn" onclick="removeItem(${i})">×</button>`;
+    c.appendChild(row);
+  });
+}
+
+function recalc(){
+  const sym=document.getElementById('currency').value;
+  const vatRate=parseFloat(document.getElementById('vat-rate').value)/100;
+  const sub=items.reduce((s,it)=>s+it.qty*it.price,0);
+  const vat=sub*vatRate;
+  const total=sub+vat;
+  document.getElementById('subtotal').textContent=fmt(sub,sym);
+  document.getElementById('vat-amount').textContent=fmt(vat,sym);
+  document.getElementById('grand-total').textContent=fmt(total,sym);
+  renderItems();
+  updatePreview();
+}
+
+function addItem(){items.push({desc:'',qty:1,price:0});recalc();}
+function removeItem(i){if(items.length>1){items.splice(i,1);recalc();}}
+
+function updatePreview(){
+  const sym=document.getElementById('currency').value;
+  const vatRate=parseFloat(document.getElementById('vat-rate').value);
+  document.getElementById('prev-num').textContent=document.getElementById('inv-num').value||'INV-####';
+  const d=document.getElementById('inv-date').value;
+  const du=document.getElementById('due-date').value;
+  if(d){const dt=new Date(d);document.getElementById('prev-date').textContent='Issued: '+dt.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});}
+  if(du){const dt=new Date(du);document.getElementById('prev-due').textContent='Due: '+dt.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});}
+  document.getElementById('prev-client').textContent=document.getElementById('client-name').value||'—';
+  document.getElementById('prev-email').textContent=document.getElementById('client-email').value||'—';
+  const sub=items.reduce((s,it)=>s+it.qty*it.price,0);
+  const vat=sub*(vatRate/100);
+  document.getElementById('prev-sub').textContent=fmt(sub,sym);
+  document.getElementById('prev-vat-label').textContent='VAT ('+vatRate+'%)';
+  document.getElementById('prev-vat').textContent=fmt(vat,sym);
+  document.getElementById('prev-total').textContent=fmt(sub+vat,sym);
+  const tbody=document.getElementById('prev-tbody');
+  const filled=items.filter(it=>it.desc||it.price>0);
+  if(filled.length===0){tbody.innerHTML='<tr><td colspan="3" style="color:var(--color-text-tertiary);font-style:italic;">No items yet</td></tr>';return;}
+  tbody.innerHTML=filled.map(it=>`<tr><td>${it.desc||'—'}</td><td style="text-align:right">${it.qty}</td><td style="text-align:right">${fmt(it.qty*it.price,sym)}</td></tr>`).join('');
+}
+
+recalc();
+</script>
